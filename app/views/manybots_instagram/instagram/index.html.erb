@@ -1,0 +1,33 @@
+<div class="clearfix" style="margin-bottom: 20px;">
+  <%= image_tag('manybots-instagram/icon.png', :align => :left, :width => 40, :style=> 'margin-right: 10px;') %>
+  <h2>Instagram Observer</h2>
+</div>
+
+<%- @instagrams.each do |instagram| -%>
+  <div class="card">
+    <h4>
+      <%= instagram.payload[:username] || "Instagram user ##{instagram.remote_account_id}" %>
+      <span class="meta">
+        <%= link_to 'Delete', instagram_path(instagram.id), :method => :delete, :confirm => 'Are you sure?', :class => '' %>
+      </span>
+    </h4>
+
+    <%- if @schedules and @schedules.keys.include?("import_manybots_instagram_#{instagram.id}") -%> 
+      
+      <p>Importing photos from Instagram every 2 hours</p>
+      <p><%= link_to 'Stop importing', toggle_instagram_path(instagram.id), :method => :post, :confirm => 'Sure?' %></p>
+      
+    <%- else -%>
+    
+      <%= form_tag toggle_instagram_path(instagram.id), :method => :post, :class => 'clearfix' do %>    
+        <p class="button save" style="float:left;margin: 0 5px 0 0;">
+          <%= submit_tag 'Start importing', :id => 'submit'%> 
+        </p>
+        <span class="meta" style="line-height: 32px;">and refresh every 2 hours.</span>
+      <%- end -%>
+    <%- end -%>
+    <p></p>
+    
+  </div>
+<%- end -%>
+<p><%= link_to 'Register an Instagram account', new_instagram_path %></p>
