@@ -17,7 +17,7 @@ if app.new_record?
   app.name = "Instagram Observer"
   app.description = "Import your pictures from Instagram"
   app.url = ManybotsServer.url + '/manybots-instagram'
-  app.app_icon_url = "/assets/manybots-instagram/icon.png"
+  app.app_icon_url = ManybotsServer.url + "/assets/manybots-instagram/icon.png"
   app.developer_name = "Manybots"
   app.developer_url = "https://www.manybots.com"
   app.category = "Lifestyle"

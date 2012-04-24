@@ -81,16 +81,20 @@ private
   def media_as_activity(media)
     activity = {
       published: Time.at(media.created_time.to_i).xmlschema,
-      verb: 'post',
-      title: "ACTOR posted OBJECT#{' at TARGET' if media.location.present?}",
+      verb: media.link.present? ? 'post' : 'save',
+      title: "ACTOR #{media.link.present? ? 'posted' : 'saved'} OBJECT#{' at TARGET' if media.location.present? and media.location.name.present?}",
+      content: "<p><img src='#{media.images.thumbnail.url}' /></p>",
       auto_title: true,
       tags: media.tags.push(media.filter), 
+      icon: {
+        url: ManybotsInstagram.app.app_icon_url
+      }
     }
     activity[:object] = {
       objectType: 'photo',
       displayName: media.caption.present? ? media.caption.text : 'Unnamed photo',
       id: "tag:instagr.am,#{Time.now.year}:media/#{media.id}",
-      url: media.link || "#{ManybotsInstagram.app.url}/photos/#{media.id}",
+      url: media.link || media.images.standard_resolution.url,
       image: {
         width: media.images.standard_resolution.width,
         height: media.images.standard_resolution.height,
