@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = ManybotsInstagram::VERSION
   s.authors     = ["Alexandre L. Solleiro"]
   s.email       = ["alex@webcracy.org"]
-  s.homepage    = "https://github.com/manybots/manyotts-gmail"
+  s.homepage    = "https://github.com/manybots/manybots-gmail"
   s.summary     = "Add an Instagram Observer to your local Manybots."
   s.description = "Import your photos from Instagram into your local Manybots."
   
